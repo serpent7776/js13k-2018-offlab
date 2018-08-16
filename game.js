@@ -4,6 +4,7 @@ var ga = ga(1024, 1024, load);
 var map0 = '#########.....####....####....#####..######..###################';
 var map;
 var player;
+var playerSpeedMax = 2;
 
 ga.start();
 ga.scaleToWindow();
@@ -33,5 +34,29 @@ function createPlayer() {
 	return ga.rectangle(32, 32, 'red', 'black', 1, 32, 32);
 }
 
+function setupPlayerControls() {
+	ga.key.rightArrow.press = function() {
+		player.vx = playerSpeedMax;
+	};
+	ga.key.rightArrow.release = function() {
+		if (!ga.key.leftArrow.isDown) {
+			player.vx = 0;
+		}
+	};
+	ga.key.leftArrow.press = function() {
+		player.vx = -playerSpeedMax;
+	};
+	ga.key.leftArrow.release = function() {
+		if (!ga.key.rightArrow.isDown) {
+			player.vx = 0;
+		}
+	};
+}
+
+function update() {
+	ga.move(player);
+}
+
 function game() {
+	update();
 }
