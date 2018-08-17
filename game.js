@@ -75,22 +75,22 @@ function setupPlayerControls() {
 
 function move(o) {
 	ga.move(o);
-	var pt = map.getTileXY(player);
-	if (player.vx < 0) {
+	var pt = map.getTileXY(o);
+	if (o.vx < 0) {
 		if (map.isWall(pt.x, pt.y)) {
 			var x = map.getX(pt.x + 1);
-			player.x = x;
+			o.x = x;
 		}
-	} else if (player.vx > 0) {
+	} else if (o.vx > 0) {
 		if (map.isWall(pt.x + 1, pt.y)) {
 			var x = map.getX(pt.x);
-			player.x = x;
+			o.x = x;
 		}
 	}
-	if (player.vy > 0) {
+	if (o.vy > 0) {
 		if (map.isWall(pt.x, pt.y + 1)) {
 			var y = map.getY(pt.y);
-			player.y = y;
+			o.y = y;
 		}
 	}
 }
