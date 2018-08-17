@@ -6,7 +6,8 @@ var map;
 var player;
 var playerSpeedMax = 2;
 var gravity = 4;
-var jumpSpeed = 32;
+var jumpSteps = 4;
+var jumpSpeed = 32 / 4;
 
 ga.start();
 ga.scaleToWindow();
@@ -77,7 +78,7 @@ function setupPlayerControls() {
 	};
 	ga.key.upArrow.press = function() {
 		if (player.jumping == 0 && player.standing) {
-			player.jumping = 1;
+			player.jumping = jumpSteps;
 			player.standing = false;
 		}
 	};
@@ -89,6 +90,7 @@ function move(o) {
 	var cx = o.centerX;
 	var cy = o.centerY;
 	var hx = map.tx / 2;
+	var hx2 = map.tx / 3;
 	var hy = map.ty / 2;
 	if (o.vx < 0) {
 		if (map.isWall(cx - hx, cy)) {
@@ -103,7 +105,7 @@ function move(o) {
 	}
 	if (o.vy > 0) {
 		o.standing = false;
-		if (map.isWall(cx, cy + hy)) {
+		if (map.isWall(cx - hx2, cy + hy) || map.isWall(cx + hx2, cy + hy)) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
@@ -121,7 +123,7 @@ function move(o) {
 function update() {
 	if (player.jumping > 0 ) {
 		player.vy = -jumpSpeed;
-		player.jumping = 0;
+		player.jumping--;
 	} else {
 		player.vy = gravity;
 	}
