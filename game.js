@@ -6,6 +6,7 @@ var map;
 var player;
 var playerSpeedMax = 2;
 var gravity = 4;
+var jumpSpeed = 32;
 
 ga.start();
 ga.scaleToWindow();
@@ -51,7 +52,9 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	return ga.rectangle(32, 32, 'red', 'black', 1, 32, 32);
+	var p = ga.rectangle(32, 32, 'red', 'black', 1, 32, 32);
+	p.jumping = 0;
+	return p;
 }
 
 function setupPlayerControls() {
@@ -71,6 +74,12 @@ function setupPlayerControls() {
 			player.vx = 0;
 		}
 	};
+	ga.key.upArrow.press = function() {
+		if (player.jumping == 0 && player.standing) {
+			player.jumping = 1;
+			player.standing = false;
+		}
+	};
 }
 
 function move(o) {
@@ -88,15 +97,29 @@ function move(o) {
 		}
 	}
 	if (o.vy > 0) {
+		o.standing = false;
 		if (map.isWall(pt.x, pt.y + 1)) {
 			var y = map.getY(pt.y);
 			o.y = y;
+			o.jumping = 0;
+			o.standing = true;
+		}
+	} else if (o.vy < 0) {
+		if (map.isWall(pt.x, pt.y)) {
+			var y = map.getY(pt.y + 1);
+			o.y = y;
+			o.jumping = 0;
 		}
 	}
 }
 
 function update() {
-	player.vy = gravity;
+	if (player.jumping > 0 ) {
+		player.vy = -jumpSpeed;
+		player.jumping = 0;
+	} else {
+		player.vy = gravity;
+	}
 	move(player);
 }
 
