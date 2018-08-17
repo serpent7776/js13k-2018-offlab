@@ -1,7 +1,7 @@
 "use strict";
 
 var ga = ga(1024, 1024, load);
-var map0 = '#########.....####....####....#####..######..###################';
+var tiles0 = '#########.....####....####....#####..######..###################';
 var map;
 var player;
 var playerSpeedMax = 2;
@@ -12,7 +12,7 @@ ga.fps = 60;
 
 function load() {
 	ga.state = game;
-	map = createMap(map0, 8, 8, 32, 32);
+	map = createMap(tiles0, 8, 8, 32, 32);
 	player = createPlayer();
 	setupPlayerControls();
 }
