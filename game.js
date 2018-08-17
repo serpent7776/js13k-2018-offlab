@@ -34,12 +34,13 @@ function createMap(tiles, nx, ny, width, height) {
 	map.ny = ny; // number of tiles in y-axis
 	map.tx = width; // width of a tile
 	map.ty = height; // height of a tile
-	map.isWall = function(tx, ty) {
-		return this.tiles[ty * this.nx + tx] == '#';
+	map.isWall = function(x, y) {
+		var t = this.getTileXY(x, y);
+		return this.tiles[t.y * this.nx + t.x] == '#';
 	};
-	map.getTileXY = function(o) {
-		var ptx = Math.floor(o.x / this.tx);
-		var pty = Math.floor(o.y / this.ty);
+	map.getTileXY = function(x, y) {
+		var ptx = Math.floor(x / this.tx);
+		var pty = Math.floor(y / this.ty);
 		return {x: ptx, y: pty};
 	};
 	map.getX = function(x) {
@@ -84,29 +85,33 @@ function setupPlayerControls() {
 
 function move(o) {
 	ga.move(o);
-	var pt = map.getTileXY(o);
+	var pt = map.getTileXY(o.centerX, o.centerY);
+	var cx = o.centerX;
+	var cy = o.centerY;
+	var hx = map.tx / 2;
+	var hy = map.ty / 2;
 	if (o.vx < 0) {
-		if (map.isWall(pt.x, pt.y)) {
-			var x = map.getX(pt.x + 1);
+		if (map.isWall(cx - hx, cy)) {
+			var x = map.getX(pt.x);
 			o.x = x;
 		}
 	} else if (o.vx > 0) {
-		if (map.isWall(pt.x + 1, pt.y)) {
+		if (map.isWall(cx + hx, cy)) {
 			var x = map.getX(pt.x);
 			o.x = x;
 		}
 	}
 	if (o.vy > 0) {
 		o.standing = false;
-		if (map.isWall(pt.x, pt.y + 1)) {
+		if (map.isWall(cx, cy + hy)) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
 			o.standing = true;
 		}
 	} else if (o.vy < 0) {
-		if (map.isWall(pt.x, pt.y)) {
-			var y = map.getY(pt.y + 1);
+		if (map.isWall(cx, cy - hy)) {
+			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
 		}
