@@ -27,6 +27,25 @@ function createMap(tiles, nx, ny, width, height) {
 			map.addChild(tile);
 		}
 	}
+	map.tiles = tiles;
+	map.nx = nx; // number of tiles in x-axis
+	map.ny = ny; // number of tiles in y-axis
+	map.tx = width; // width of a tile
+	map.ty = height; // height of a tile
+	map.isWall = function(tx, ty) {
+		return this.tiles[ty * this.nx + tx] == '#';
+	};
+	map.getTileXY = function(o) {
+		var ptx = Math.floor(o.x / this.tx);
+		var pty = Math.floor(o.y / this.ty);
+		return {x: ptx, y: pty};
+	};
+	map.getX = function(x) {
+		return x * this.tx;
+	};
+	map.getY = function(y) {
+		return y * this.ty;
+	};
 	return map;
 }
 
@@ -53,8 +72,25 @@ function setupPlayerControls() {
 	};
 }
 
+function move(o) {
+	var pt0 = map.getTileXY(player);
+	ga.move(o);
+	var pt1 = map.getTileXY(player);
+	if (player.vx < 0) {
+		if (map.isWall(pt1.x, pt1.y)) {
+			var x = map.getX(pt1.x + 1);
+			player.x = x;
+		}
+	} else if (player.vx > 0) {
+		if (map.isWall(pt1.x + 1, pt1.y)) {
+			var x = map.getX(pt1.x);
+			player.x = x;
+		}
+	}
+}
+
 function update() {
-	ga.move(player);
+	move(player);
 }
 
 function game() {
