@@ -5,6 +5,7 @@ var tiles0 = '#########.....####....####....#####..######..###################';
 var map;
 var player;
 var playerSpeedMax = 2;
+var gravity = 4;
 
 ga.start();
 ga.scaleToWindow();
@@ -73,23 +74,29 @@ function setupPlayerControls() {
 }
 
 function move(o) {
-	var pt0 = map.getTileXY(player);
 	ga.move(o);
-	var pt1 = map.getTileXY(player);
+	var pt = map.getTileXY(player);
 	if (player.vx < 0) {
-		if (map.isWall(pt1.x, pt1.y)) {
-			var x = map.getX(pt1.x + 1);
+		if (map.isWall(pt.x, pt.y)) {
+			var x = map.getX(pt.x + 1);
 			player.x = x;
 		}
 	} else if (player.vx > 0) {
-		if (map.isWall(pt1.x + 1, pt1.y)) {
-			var x = map.getX(pt1.x);
+		if (map.isWall(pt.x + 1, pt.y)) {
+			var x = map.getX(pt.x);
 			player.x = x;
+		}
+	}
+	if (player.vy > 0) {
+		if (map.isWall(pt.x, pt.y + 1)) {
+			var y = map.getY(pt.y);
+			player.y = y;
 		}
 	}
 }
 
 function update() {
+	player.vy = gravity;
 	move(player);
 }
 
