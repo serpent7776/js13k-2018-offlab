@@ -103,30 +103,28 @@ function move(o) {
 	var pt = map.getTileXY(o.centerX, o.centerY);
 	var cx = o.centerX;
 	var cy = o.centerY;
-	var hx = map.tx / 2;
 	var hx2 = map.tx / 3;
-	var hy = map.ty / 2;
 	if (o.vx < 0) {
-		if (map.isWall(cx - hx, cy)) {
+		if (map.isWall(cx - map.htx, cy)) {
 			var x = map.getX(pt.x);
 			o.x = x;
 		}
 	} else if (o.vx > 0) {
-		if (map.isWall(cx + hx, cy)) {
+		if (map.isWall(cx + map.htx, cy)) {
 			var x = map.getX(pt.x);
 			o.x = x;
 		}
 	}
 	if (o.vy > 0) {
 		o.standing = false;
-		if (map.isWall(cx - hx2, cy + hy) || map.isWall(cx + hx2, cy + hy)) {
+		if (map.isWall(cx - hx2, cy + map.hty) || map.isWall(cx + hx2, cy + map.hty)) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
 			o.standing = true;
 		}
 	} else if (o.vy < 0) {
-		if (map.isWall(cx, cy - hy)) {
+		if (map.isWall(cx, cy - map.hty)) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
