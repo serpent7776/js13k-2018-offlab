@@ -32,6 +32,7 @@ function createMap(tiles, nx, ny, width, height) {
 			map.addChild(tile);
 		}
 	}
+	map.lasers = ga.group();
 	map.tiles = tiles;
 	map.nx = nx; // number of tiles in x-axis
 	map.ny = ny; // number of tiles in y-axis
@@ -65,11 +66,13 @@ function createPlayer() {
 
 function createLaserV(tx, ty, len) {
 	var b = ga.rectangle(4, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
+	map.lasers.addChild(b);
 	return b;
 }
 
 function createLaserH(tx, ty, len) {
 	var b = ga.rectangle(map.tx * len, 4, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
+	map.lasers.addChild(b);
 	return b;
 }
 
