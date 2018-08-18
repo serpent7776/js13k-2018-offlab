@@ -28,7 +28,7 @@ function createMap(tiles, nx, ny, width, height) {
 		var x = (i % nx) * width;
 		var y = Math.floor(i / nx) * height;
 		if (tiles[i] == '#') {
-			var tile = ga.rectangle(width, height, 'grey', 'black', 1, x, y);
+			var tile = ga.rectangle(width - 1, height - 1, 'grey', 'black', 1, x, y);
 			map.addChild(tile);
 		}
 	}
@@ -59,19 +59,19 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	var p = ga.rectangle(32, 32, 'red', 'black', 1, 32, 32);
+	var p = ga.rectangle(31, 31, 'red', 'black', 1, 32, 32);
 	p.jumping = 0;
 	return p;
 }
 
 function createLaserV(tx, ty, len) {
-	var b = ga.rectangle(4, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
+	var b = ga.rectangle(3, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
 	map.lasers.addChild(b);
 	return b;
 }
 
 function createLaserH(tx, ty, len) {
-	var b = ga.rectangle(map.tx * len, 4, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
+	var b = ga.rectangle(map.tx * len, 3, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
 	map.lasers.addChild(b);
 	return b;
 }
