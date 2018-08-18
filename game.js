@@ -33,6 +33,7 @@ function createMap(tiles, nx, ny, width, height) {
 		}
 	}
 	map.lasers = ga.group();
+	map.startPos = {x:1, y:1};
 	map.tiles = tiles;
 	map.nx = nx; // number of tiles in x-axis
 	map.ny = ny; // number of tiles in y-axis
@@ -59,7 +60,7 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	var p = ga.rectangle(31, 31, 'red', 'black', 1, 32, 32);
+	var p = ga.rectangle(31, 31, 'red', 'black', 1, map.getX(map.startPos.x), map.getY(map.startPos.y));
 	p.jumping = 0;
 	return p;
 }
