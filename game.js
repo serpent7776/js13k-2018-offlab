@@ -16,6 +16,8 @@ ga.fps = 60;
 function load() {
 	ga.state = game;
 	map = createMap(tiles0, 8, 8, 32, 32);
+	createLaserV(6, 1, 3);
+	createLaserH(4, 1, 3);
 	player = createPlayer();
 	setupPlayerControls();
 }
@@ -35,6 +37,8 @@ function createMap(tiles, nx, ny, width, height) {
 	map.ny = ny; // number of tiles in y-axis
 	map.tx = width; // width of a tile
 	map.ty = height; // height of a tile
+	map.htx = width / 2; // half width of a tile
+	map.hty = height / 2; // half height of a tile
 	map.isWall = function(x, y) {
 		var t = this.getTileXY(x, y);
 		return this.tiles[t.y * this.nx + t.x] == '#';
@@ -57,6 +61,16 @@ function createPlayer() {
 	var p = ga.rectangle(32, 32, 'red', 'black', 1, 32, 32);
 	p.jumping = 0;
 	return p;
+}
+
+function createLaserV(tx, ty, len) {
+	var b = ga.rectangle(4, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
+	return b;
+}
+
+function createLaserH(tx, ty, len) {
+	var b = ga.rectangle(map.tx * len, 4, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
+	return b;
 }
 
 function setupPlayerControls() {
