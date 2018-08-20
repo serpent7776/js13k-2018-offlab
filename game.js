@@ -66,6 +66,10 @@ function createPlayer() {
 	return p;
 }
 
+function resetPlayer(p) {
+	p.setPosition(map.getX(map.startPos.x), map.getY(map.startPos.y));
+}
+
 function createLaserV(tx, ty, len) {
 	var b = ga.rectangle(3, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
 	map.vlasers.addChild(b);
@@ -137,6 +141,24 @@ function move(o) {
 	}
 }
 
+function checkDead(p) {
+	for (var i = 0, len = map.vlasers.children.length; i < len; i++) {
+		var l = map.vlasers.children[i];
+		var hit = ga.hitTestRectangle(p, l, true);
+		if (hit) {
+			return true;
+		}
+	}
+	for (var i = 0, len = map.hlasers.children.length; i < len; i++) {
+		var l = map.hlasers.children[i];
+		var hit = ga.hitTestRectangle(p, l, true);
+		if (hit) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function update() {
 	if (player.jumping > 0 ) {
 		player.vy = -jumpSpeed;
@@ -145,6 +167,9 @@ function update() {
 		player.vy = gravity;
 	}
 	move(player);
+	if (checkDead(player)) {
+		resetPlayer(player);
+	}
 }
 
 function game() {
