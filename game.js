@@ -113,7 +113,7 @@ function setupPlayerControls() {
 	};
 }
 
-function move(o) {
+function movePlayer(o) {
 	ga.move(o);
 	var pt = map.getTileXY(o.centerX, o.centerY);
 	var cx = o.centerX;
@@ -172,7 +172,7 @@ function update() {
 	} else {
 		player.vy = gravity;
 	}
-	move(player);
+	movePlayer(player);
 	if (checkDead(player)) {
 		resetPlayer(player);
 	}
