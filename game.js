@@ -10,7 +10,7 @@ var jumpSteps = 4;
 var jumpSpeed = 32 / 4;
 
 ga.start();
-ga.scaleToWindow();
+// ga.scaleToWindow();
 ga.fps = 60;
 
 function load() {
@@ -18,6 +18,7 @@ function load() {
 	map = createMap(tiles0, 8, 8, 32, 32);
 	createLaserV(6, 1, 3);
 	createLaserH(4, 1, 3);
+	createPlatformV(3, 5, -1);
 	player = createPlayer();
 	setupPlayerControls();
 }
@@ -80,6 +81,11 @@ function createLaserH(tx, ty, len) {
 	var b = ga.rectangle(map.tx * len, 3, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
 	map.hlasers.addChild(b);
 	return b;
+}
+
+function createPlatformV(tx, ty, dty) {
+	var p = ga.rectangle(map.tx - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx), map.getY(ty + 0.8));
+	return p;
 }
 
 function setupPlayerControls() {
