@@ -65,7 +65,9 @@ function createMap(tiles, nx, ny, width, height) {
 
 function createPlayer() {
 	var p = ga.rectangle(31, 31, 'red', 'black', 1, map.getX(map.startPos.x), map.getY(map.startPos.y));
+	p.standing = false;
 	p.jumping = 0;
+	p.platforming = undefined;
 	return p;
 }
 
@@ -112,11 +114,41 @@ function setupPlayerControls() {
 		}
 	};
 	ga.key.upArrow.press = function() {
-		if (player.jumping == 0 && player.standing) {
+		if (player.jumping == 0 && (player.standing || player.platforming)) {
 			player.jumping = jumpSteps;
 			player.standing = false;
 		}
 	};
+}
+
+function getPlatform(o) {
+	var cx = o.centerX;
+	var cy = o.centerY;
+	var result = undefined;
+	for (var i = 0, len = map.vplatforms.children.length; i < len; i++) {
+		var platform = map.vplatforms.children[i];
+		var rect = {
+			x: platform.x,
+			y: platform.y - o.height,
+			width: platform.width,
+			height: o.height,
+		};
+		var leftFoot = {
+			x: cx - o.halfWidth / 2,
+			y: cy,
+		};
+		var rightFoot = {
+			x: cx + o.halfWidth / 2,
+			y: cy,
+		};
+		if (ga.hitTestPoint(leftFoot, rect, false) || ga.hitTestPoint(rightFoot, rect, false)) {
+			result = platform;
+			if (platform.vy < 0) {
+				break;
+			}
+		}
+	}
+	return result;
 }
 
 function movePlayer(o) {
@@ -125,6 +157,7 @@ function movePlayer(o) {
 	var cx = o.centerX;
 	var cy = o.centerY;
 	var hx2 = map.tx / 3;
+	o.platforming = getPlatform(o);
 	if (o.vx < 0) {
 		if (map.isWall(cx - map.htx, cy)) {
 			var x = map.getX(pt.x);
@@ -143,12 +176,20 @@ function movePlayer(o) {
 			o.y = y;
 			o.jumping = 0;
 			o.standing = true;
+		} else if (o.platforming) {
+			if (o.y + o.height > o.platforming.y) {
+				o.y = o.platforming.y - o.height;
+				o.jumping = 0;
+				o.standing = true;
+			}
 		}
 	} else if (o.vy < 0) {
 		if (map.isWall(cx, cy - map.hty)) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
+		} else if (o.platforming) {
+			// TODO: do something here? //
 		}
 	}
 }
