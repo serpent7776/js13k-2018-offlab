@@ -19,6 +19,7 @@ function load() {
 	createLaserV(6, 1, 3);
 	createLaserH(4, 1, 3);
 	createPlatformV(3, 5, 4);
+	createPlatformV(4, 4, 5);
 	player = createPlayer();
 	setupPlayerControls();
 }
@@ -143,7 +144,7 @@ function getPlatform(o) {
 		};
 		if (ga.hitTestPoint(leftFoot, rect, false) || ga.hitTestPoint(rightFoot, rect, false)) {
 			result = platform;
-			if (platform.vy < 0) {
+			if (platform.delta > 0) {
 				break;
 			}
 		}
@@ -196,7 +197,8 @@ function movePlayer(o) {
 
 function movePlatform(p) {
 	p.dt += 0.01;
-	var a = (Math.sin(p.dt) + 1) / 2;
+	p.delta = Math.sin(p.dt);
+	var a = (p.delta + 1) / 2;
 	var y = p.ty0 * (1 - a) + p.ty1 * a;
 	p.y = map.getY(y + 0.8);
 }
