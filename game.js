@@ -98,6 +98,12 @@ function createPlatformV(tx, ty0, ty1) {
 }
 
 function setupPlayerControls() {
+	ga.key.upArrow.press = function() {
+		if (player.jumping == 0 && (player.standing || player.platforming)) {
+			player.jumping = jumpSteps;
+			player.standing = false;
+		}
+	};
 	ga.key.rightArrow.press = function() {
 		player.vx = playerSpeedMax;
 	};
@@ -112,12 +118,6 @@ function setupPlayerControls() {
 	ga.key.leftArrow.release = function() {
 		if (!ga.key.rightArrow.isDown) {
 			player.vx = 0;
-		}
-	};
-	ga.key.upArrow.press = function() {
-		if (player.jumping == 0 && (player.standing || player.platforming)) {
-			player.jumping = jumpSteps;
-			player.standing = false;
 		}
 	};
 }
