@@ -20,6 +20,7 @@ function load() {
 	createLaserH(4, 1, 3);
 	createPlatformV(3, 5, 4);
 	createPlatformV(4, 4, 5);
+	createPlatformH(3, 5, 3);
 	player = createPlayer();
 	setupPlayerControls();
 }
@@ -94,6 +95,17 @@ function createPlatformV(tx, ty0, ty1) {
 	p.ty0 = ty0;
 	p.ty1 = ty1;
 	p.dt = 0;
+	p.platformType = 'v';
+	return p;
+}
+
+function createPlatformH(tx0, tx1, ty) {
+	var p = ga.rectangle(map.tx0 - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx0), map.getY(ty + 0.8));
+	map.hplatforms.addChild(p);
+	p.tx0 = tx0;
+	p.tx1 = tx1;
+	p.dt = 0;
+	p.platformType = 'h';
 	return p;
 }
 
@@ -199,8 +211,13 @@ function movePlatform(p) {
 	p.dt += 0.01;
 	p.delta = Math.sin(p.dt);
 	var a = (p.delta + 1) / 2;
-	var y = p.ty0 * (1 - a) + p.ty1 * a;
-	p.y = map.getY(y + 0.8);
+	if (p.platformType == 'v') {
+		var y = p.ty0 * (1 - a) + p.ty1 * a;
+		p.y = map.getY(y + 0.8);
+	} else if (p.platformType == 'h') {
+		var x = p.tx0 * (1 - a) + p.tx1 * a;
+		p.x = map.getX(x);
+	}
 }
 
 function checkDead(p) {
@@ -230,6 +247,9 @@ function update() {
 	}
 	for (var i = 0, len = map.vplatforms.children.length; i < len; i++) {
 		movePlatform(map.vplatforms.children[i]);
+	}
+	for (var i = 0, len = map.hplatforms.children.length; i < len; i++) {
+		movePlatform(map.hplatforms.children[i]);
 	}
 	movePlayer(player);
 	if (checkDead(player)) {
