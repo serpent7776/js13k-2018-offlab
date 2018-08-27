@@ -35,8 +35,7 @@ function createMap(tiles, nx, ny, width, height) {
 			map.addChild(tile);
 		}
 	}
-	map.hlasers = ga.group();
-	map.vlasers = ga.group();
+	map.lasers = ga.group();
 	map.platforms = ga.group();
 	map.startPos = {x:1, y:1};
 	map.tiles = tiles;
@@ -78,13 +77,13 @@ function resetPlayer(p) {
 
 function createLaserV(tx, ty, len) {
 	var b = ga.rectangle(3, map.ty * len, 'red', 'orange', 1, map.getX(tx) + map.htx, map.getY(ty));
-	map.vlasers.addChild(b);
+	map.lasers.addChild(b);
 	return b;
 }
 
 function createLaserH(tx, ty, len) {
 	var b = ga.rectangle(map.tx * len, 3, 'red', 'orange', 1, map.getX(tx), map.getY(ty) + map.hty);
-	map.hlasers.addChild(b);
+	map.lasers.addChild(b);
 	return b;
 }
 
@@ -220,15 +219,8 @@ function movePlatform(p) {
 }
 
 function checkDead(p) {
-	for (var i = 0, len = map.vlasers.children.length; i < len; i++) {
-		var l = map.vlasers.children[i];
-		var hit = ga.hitTestRectangle(p, l, true);
-		if (hit) {
-			return true;
-		}
-	}
-	for (var i = 0, len = map.hlasers.children.length; i < len; i++) {
-		var l = map.hlasers.children[i];
+	for (var i = 0, len = map.lasers.children.length; i < len; i++) {
+		var l = map.lasers.children[i];
 		var hit = ga.hitTestRectangle(p, l, true);
 		if (hit) {
 			return true;
