@@ -37,8 +37,7 @@ function createMap(tiles, nx, ny, width, height) {
 	}
 	map.hlasers = ga.group();
 	map.vlasers = ga.group();
-	map.hplatforms = ga.group();
-	map.vplatforms = ga.group();
+	map.platforms = ga.group();
 	map.startPos = {x:1, y:1};
 	map.tiles = tiles;
 	map.nx = nx; // number of tiles in x-axis
@@ -91,7 +90,7 @@ function createLaserH(tx, ty, len) {
 
 function createPlatformV(tx, ty0, ty1) {
 	var p = ga.rectangle(map.tx - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx), map.getY(ty1 + 0.8));
-	map.vplatforms.addChild(p);
+	map.platforms.addChild(p);
 	p.ty0 = ty0;
 	p.ty1 = ty1;
 	p.dt = 0;
@@ -101,7 +100,7 @@ function createPlatformV(tx, ty0, ty1) {
 
 function createPlatformH(tx0, tx1, ty) {
 	var p = ga.rectangle(map.tx0 - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx0), map.getY(ty + 0.8));
-	map.hplatforms.addChild(p);
+	map.platforms.addChild(p);
 	p.tx0 = tx0;
 	p.tx1 = tx1;
 	p.dt = 0;
@@ -138,8 +137,8 @@ function getPlatform(o) {
 	var cx = o.centerX;
 	var cy = o.centerY;
 	var result = undefined;
-	for (var i = 0, len = map.vplatforms.children.length; i < len; i++) {
-		var platform = map.vplatforms.children[i];
+	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
+		var platform = map.platforms.children[i];
 		var rect = {
 			x: platform.x,
 			y: platform.y - o.height,
@@ -245,11 +244,8 @@ function update() {
 	} else {
 		player.vy = gravity;
 	}
-	for (var i = 0, len = map.vplatforms.children.length; i < len; i++) {
-		movePlatform(map.vplatforms.children[i]);
-	}
-	for (var i = 0, len = map.hplatforms.children.length; i < len; i++) {
-		movePlatform(map.hplatforms.children[i]);
+	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
+		movePlatform(map.platforms.children[i]);
 	}
 	movePlayer(player);
 	if (checkDead(player)) {
