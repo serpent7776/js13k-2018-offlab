@@ -27,7 +27,7 @@ var levels = [
 var level = -1;
 var map;
 var player;
-var playerSpeedMax = 2;
+var playerSpeedMax = 8;
 var gravity = 4;
 var jumpSteps = 4;
 var jumpSpeed = 32 / 4;
