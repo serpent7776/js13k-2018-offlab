@@ -23,6 +23,28 @@ var levels = [
 			createDoor(2, 3);
 		},
 	},
+	{
+		t: '#####################################################...#########...######........##############',
+		f: function() {
+			map.startPos = {x: 2, y:6};
+			createDoor(9, 6);
+			createLaserV(6, 4, 3);
+		},
+	},
+	{
+		t: '##############.........#####.##.########.##.######........######....#####.......################',
+		f: function() {
+			map.startPos = {x: 1, y:6};
+			createDoor(10, 1);
+			createLaserV(3, 1, 1);
+			createLaserV(3, 4, 1);
+			createLaserV(8, 4, 1);
+			createPlatformV(7, 6, 5);
+			createPlatformH(7, 4, 4);
+			createPlatformV(4, 4, 1);
+			createPlatformH(4, 7, 1);
+		},
+	},
 ];
 var level = -1;
 var map;
