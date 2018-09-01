@@ -8,6 +8,7 @@ var playerSpeedMax = 2;
 var gravity = 4;
 var jumpSteps = 4;
 var jumpSpeed = 32 / 4;
+var sysOn = true;
 
 ga.start();
 // ga.scaleToWindow();
@@ -16,13 +17,18 @@ ga.fps = 60;
 function load() {
 	ga.state = game;
 	map = createMap(tiles0, 8, 8, 32, 32);
-	createLaserV(6, 1, 3);
+	createLaserV(6, 1, 2);
 	createLaserH(4, 1, 3);
 	createPlatformV(3, 5, 4);
 	createPlatformV(4, 4, 5);
 	createPlatformH(3, 5, 3);
 	player = createPlayer();
+	createDoor(6, 3);
 	setupPlayerControls();
+}
+
+function nextLevel() {
+	throw "not implemented yet";
 }
 
 function createMap(tiles, nx, ny, width, height) {
@@ -107,6 +113,11 @@ function createPlatformH(tx0, tx1, ty) {
 	return p;
 }
 
+function createDoor(tx, ty) {
+	var d = ga.rectangle(map.tx - 2, map.ty - 2, 'azure', 'grey', 1, map.getX(tx), map.getY(ty));
+	map.doors = d;
+}
+
 function setupPlayerControls() {
 	ga.key.upArrow.press = function() {
 		if (player.jumping == 0 && (player.standing || player.platforming)) {
@@ -129,6 +140,10 @@ function setupPlayerControls() {
 		if (!ga.key.rightArrow.isDown) {
 			player.vx = 0;
 		}
+	};
+	ga.key.space.press = function() {
+		sysOn = !sysOn;
+		map.lasers.visible = sysOn;
 	};
 }
 
@@ -225,6 +240,12 @@ function movePlatform(p) {
 	}
 }
 
+function checkNextLevel(p) {
+	if (ga.distance(p, map.doors) < map.htx) {
+		nextLevel();
+	}
+}
+
 function checkDead(p) {
 	for (var i = 0, len = map.lasers.children.length; i < len; i++) {
 		var l = map.lasers.children[i];
@@ -243,11 +264,16 @@ function update() {
 	} else {
 		player.vy = gravity;
 	}
-	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
-		movePlatform(map.platforms.children[i]);
+	if (sysOn) {
+		for (var i = 0, len = map.platforms.children.length; i < len; i++) {
+			movePlatform(map.platforms.children[i]);
+		}
 	}
 	movePlayer(player);
-	if (checkDead(player)) {
+	if (checkNextLevel(player)) {
+		return;
+	}
+	if (sysOn && checkDead(player)) {
 		resetPlayer(player);
 	}
 }
