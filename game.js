@@ -1,7 +1,30 @@
 "use strict";
 
 var ga = ga(1024, 1024, load);
-var tiles0 = '#########......###.....###.....####...#####..###################';
+var levels = [
+	{
+		t: '####################################################....########....######........##############',
+		f: function() {
+			map.startPos = {x: 2, y:6};
+			createDoor(9, 6);
+		},
+	},
+	{
+		t: '#####################################################...#########...######....#...##############',
+		f: function() {
+			map.startPos = {x: 2, y:6};
+			createDoor(9, 6);
+		},
+	},
+	{
+		t: '######################################........######......#####...#...####.......###############',
+		f: function() {
+			map.startPos = {x: 2, y:6};
+			createDoor(2, 3);
+		},
+	},
+];
+var level = -1;
 var map;
 var player;
 var playerSpeedMax = 2;
@@ -16,19 +39,20 @@ ga.fps = 60;
 
 function load() {
 	ga.state = game;
-	map = createMap(tiles0, 8, 8, 32, 32);
-	createLaserV(6, 1, 2);
-	createLaserH(4, 1, 3);
-	createPlatformV(3, 5, 4);
-	createPlatformV(4, 4, 5);
-	createPlatformH(3, 5, 3);
 	player = createPlayer();
-	createDoor(6, 3);
 	setupPlayerControls();
+	nextLevel();
 }
 
 function nextLevel() {
-	throw "not implemented yet";
+	level++;
+	var l = levels[level];
+	if (map) {
+		ga.remove(map);
+	}
+	map = createMap(l.t, 12, 8, 32, 32);
+	l.f();
+	resetPlayer(player);
 }
 
 function createMap(tiles, nx, ny, width, height) {
@@ -70,7 +94,7 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	var p = ga.rectangle(31, 31, 'red', 'black', 1, map.getX(map.startPos.x), map.getY(map.startPos.y));
+	var p = ga.rectangle(31, 31, 'red', 'black', 1, 0, 0);
 	p.standing = false;
 	p.jumping = 0;
 	p.platforming = undefined;
