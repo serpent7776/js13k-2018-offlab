@@ -132,31 +132,38 @@ function setupPlayerControls() {
 	};
 }
 
-function getPlatform(o) {
+function isStandingOnPlatform(o, p) {
+	if (!p) {
+		return false;
+	}
 	var cx = o.centerX;
 	var cy = o.centerY;
-	var result = undefined;
+	var rect = {
+		x: p.x,
+		y: p.y - o.height,
+		width: p.width,
+		height: o.height,
+	};
+	var leftFoot = {
+		x: cx - o.halfWidth / 2,
+		y: cy,
+	};
+	var rightFoot = {
+		x: cx + o.halfWidth / 2,
+		y: cy,
+	};
+	return ga.hitTestPoint(leftFoot, rect, false) || ga.hitTestPoint(rightFoot, rect, false);
+}
+
+function getPlatform(o) {
+	var result = isStandingOnPlatform(o, o.platforming) ? o.platforming : undefined;
 	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
 		var platform = map.platforms.children[i];
-		var rect = {
-			x: platform.x,
-			y: platform.y - o.height,
-			width: platform.width,
-			height: o.height,
-		};
-		var leftFoot = {
-			x: cx - o.halfWidth / 2,
-			y: cy,
-		};
-		var rightFoot = {
-			x: cx + o.halfWidth / 2,
-			y: cy,
-		};
-		if (ga.hitTestPoint(leftFoot, rect, false) || ga.hitTestPoint(rightFoot, rect, false)) {
+		if (result && (platform.y > result.y || platform.dir > 0)) {
+			continue;
+		}
+		if (isStandingOnPlatform(o, platform)) {
 			result = platform;
-			if (platform.delta > 0) {
-				break;
-			}
 		}
 	}
 	return result;
@@ -212,9 +219,11 @@ function movePlatform(p) {
 	if (p.platformType == 'v') {
 		var y = p.ty0 * (1 - a) + p.ty1 * a;
 		p.y = map.getY(y + 0.8);
+		p.dir = (p.ty1 - p.ty0) * Math.cos(p.dt);
 	} else if (p.platformType == 'h') {
 		var x = p.tx0 * (1 - a) + p.tx1 * a;
 		p.x = map.getX(x);
+		p.dir = (p.tx1 - p.tx0) * Math.cos(p.dt);
 	}
 }
 
