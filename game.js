@@ -68,6 +68,7 @@ function nextLevel() {
 	map = createMap(l.t, 12, 8, 32, 32);
 	l.f();
 	resetPlayer(player);
+	switchSys(true);
 }
 
 function createMap(tiles, nx, ny, width, height) {
@@ -157,6 +158,11 @@ function createDoor(tx, ty) {
 	map.doors = d;
 }
 
+function switchSys(on) {
+	sysOn = on;
+	map.lasers.visible = sysOn;
+}
+
 function setupPlayerControls() {
 	ga.key.upArrow.press = function() {
 		if (player.jumping == 0 && (player.standing || player.platforming)) {
@@ -181,8 +187,7 @@ function setupPlayerControls() {
 		}
 	};
 	ga.key.space.press = function() {
-		sysOn = !sysOn;
-		map.lasers.visible = sysOn;
+		switchSys(!sysOn);
 	};
 }
 
