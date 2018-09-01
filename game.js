@@ -206,8 +206,6 @@ function movePlayer(o) {
 			var y = map.getY(pt.y);
 			o.y = y;
 			o.jumping = 0;
-		} else if (o.platforming) {
-			// TODO: do something here? //
 		}
 	}
 }
