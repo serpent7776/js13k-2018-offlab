@@ -64,7 +64,9 @@ function nextLevel() {
 	level++;
 	var l = levels[level];
 	if (map) {
-		ga.remove(map);
+		ga.stage.removeChild(map);
+		ga.stage.removeChild(map.lasers);
+		ga.stage.removeChild(map.platforms);
 	}
 	map = createMap(l.t, 12, 8, 32, 32);
 	l.f();
