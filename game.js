@@ -277,7 +277,7 @@ function movePlayer(o) {
 }
 
 function movePlatform(p) {
-	p.dt += 0.01;
+	p.dt += 0.02;
 	p.delta = Math.sin(p.dt);
 	var a = (p.delta + 1) / 2;
 	if (p.platformType == 'v') {
