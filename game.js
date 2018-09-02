@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(1024, 1024, load);
+var ga = ga(1024, 1024, load, ['player.png']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -111,7 +111,7 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	var p = ga.rectangle(31, 31, 'red', 'black', 1, 0, 0);
+	var p = ga.sprite('player.png');
 	p.standing = false;
 	p.jumping = 0;
 	p.platforming = undefined;
