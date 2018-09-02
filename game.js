@@ -44,8 +44,8 @@ var map;
 var player;
 var playerSpeedMax = 8;
 var gravity = 4;
-var jumpSteps = 4;
-var jumpSpeed = 48 / 4;
+var jumpSteps = 12;
+var jumpSpeed = 48 / jumpSteps;
 var sysOn = true;
 
 ga.start();
