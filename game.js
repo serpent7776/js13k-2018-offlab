@@ -53,6 +53,7 @@ ga.start();
 ga.fps = 60;
 
 function load() {
+	ga.backgroundColor = '#d0d0d0';
 	ga.state = game;
 	player = createPlayer();
 	setupPlayerControls();
@@ -77,7 +78,7 @@ function createMap(tiles, nx, ny, width, height) {
 		var x = (i % nx) * width;
 		var y = Math.floor(i / nx) * height;
 		if (tiles[i] == '#') {
-			var tile = ga.rectangle(width - 1, height - 1, 'grey', 'black', 1, x, y);
+			var tile = ga.rectangle(width - 1, height - 1, '#e7e7e7', '#e0e0e0', 1, x, y);
 			map.addChild(tile);
 		}
 	}
