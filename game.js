@@ -42,7 +42,7 @@ var levels = [
 var level = -1;
 var map;
 var player;
-var playerSpeedMax = 8;
+var playerSpeedMax = 5;
 var gravity = 4;
 var jumpSteps = 12;
 var jumpSpeed = 48 / jumpSteps;
