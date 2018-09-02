@@ -115,6 +115,7 @@ function createMap(tiles, nx, ny, width, height) {
 function createPlayer() {
 	var p = ga.sprite('player.png');
 	p.standing = false;
+	p.platforming = undefined;
 	p.jumping = 0;
 	p.platforming = undefined;
 	return p;
@@ -122,6 +123,9 @@ function createPlayer() {
 
 function resetPlayer(p) {
 	p.setPosition(map.getX(map.startPos.x), map.getY(map.startPos.y));
+	p.standing = false;
+	p.platforming = undefined;
+	p.jumping = 0;
 }
 
 function createLaserV(tx, ty, len) {
