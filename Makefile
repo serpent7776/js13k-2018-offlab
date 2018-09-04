@@ -1,6 +1,8 @@
 .PHONY: zip
 
 zip:
-	cat ga/ga.js ga/plugins.js game.js > /tmp/out.js
-	closure-compiler --language_in=ECMASCRIPT5 --js /tmp/out.js --js_output_file /tmp/out.min.js
-	zip -9 -r /tmp/js13k-2018-offline.zip index.html /tmp/out.min.js ./*.png
+	mkdir -p build
+	cat ga/ga.js ga/plugins.js game.js > build/game.js
+	closure-compiler --language_in=ECMASCRIPT5 --js build/game.js --js_output_file build/game.min.js
+	cp index.html ./*.png build/
+	cd build && zip -9 -r js13k-2018-offline.zip index.html game.min.js ./*.png
