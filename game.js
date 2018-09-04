@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(1024, 1024, load, ['player.png']);
+var ga = ga(1024, 1024, load, ['player.png', 'platform_on.png', 'platform_off.png']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -162,8 +162,9 @@ function createLaserH(tx, ty, len) {
 }
 
 function createPlatformV(tx, ty0, ty1) {
-	var p = ga.rectangle(map.tx - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx), map.getY(ty1 + 1.0));
+	var p = ga.sprite('platform_on.png');
 	map.platforms.addChild(p);
+	p.x = map.getX(tx);
 	p.ty0 = ty0;
 	p.ty1 = ty1;
 	p.dt = 0;
@@ -172,8 +173,9 @@ function createPlatformV(tx, ty0, ty1) {
 }
 
 function createPlatformH(tx0, tx1, ty) {
-	var p = ga.rectangle(map.tx0 - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx0), map.getY(ty + 1.0));
+	var p = ga.sprite('platform_on.png');
 	map.platforms.addChild(p);
+	p.y = map.getY(ty + 1);
 	p.tx0 = tx0;
 	p.tx1 = tx1;
 	p.dt = 0;
