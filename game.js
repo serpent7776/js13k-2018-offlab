@@ -84,13 +84,24 @@ function nextLevel() {
 	switchSys(true);
 }
 
+function createTile(width, height, x, y) {
+	var tile = ga.rectangle(width - 1, height - 1, '', '', 1, x, y);
+	tile.renderOrg = tile.render;
+	tile.render = function(ctx) {
+		tile.fillStyle = sysOn ? '#e7e7e7' : '#0f0f0f';
+		tile.strokeStyle = sysOn ? '#e0e0e0' : '#000000';
+		tile.renderOrg(ctx);
+	}
+	return tile;
+}
+
 function createMap(tiles, nx, ny, width, height) {
 	var map = ga.group();
 	for (var i = 0, len = nx * ny; i < len; i++) {
 		var x = (i % nx) * width;
 		var y = Math.floor(i / nx) * height;
 		if (tiles[i] == '#') {
-			var tile = ga.rectangle(width - 1, height - 1, '#e7e7e7', '#e0e0e0', 1, x, y);
+			var tile = createTile(width, height, x, y);
 			map.addChild(tile);
 		}
 	}
@@ -178,6 +189,7 @@ function createDoor(tx, ty) {
 function switchSys(on) {
 	sysOn = on;
 	map.lasers.visible = sysOn;
+	ga.backgroundColor = on ? '#d0d0d0' : '#4d4d4d';
 }
 
 function setupPlayerControls() {
