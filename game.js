@@ -151,7 +151,7 @@ function createLaserH(tx, ty, len) {
 }
 
 function createPlatformV(tx, ty0, ty1) {
-	var p = ga.rectangle(map.tx - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx), map.getY(ty1 + 0.8));
+	var p = ga.rectangle(map.tx - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx), map.getY(ty1 + 1.0));
 	map.platforms.addChild(p);
 	p.ty0 = ty0;
 	p.ty1 = ty1;
@@ -161,7 +161,7 @@ function createPlatformV(tx, ty0, ty1) {
 }
 
 function createPlatformH(tx0, tx1, ty) {
-	var p = ga.rectangle(map.tx0 - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx0), map.getY(ty + 0.8));
+	var p = ga.rectangle(map.tx0 - 2, 0.2 * map.ty - 2, 'green', 'yellow', 1, map.getX(tx0), map.getY(ty + 1.0));
 	map.platforms.addChild(p);
 	p.tx0 = tx0;
 	p.tx1 = tx1;
@@ -216,17 +216,17 @@ function isStandingOnPlatform(o, p) {
 	var cy = o.centerY;
 	var rect = {
 		x: p.x,
-		y: p.y - o.height,
+		y: p.y - o.halfHeight,
 		width: p.width,
-		height: o.height,
+		height: o.halfHeight + p.height * 2,
 	};
 	var leftFoot = {
 		x: cx - o.halfWidth / 2,
-		y: cy,
+		y: cy + o.halfHeight,
 	};
 	var rightFoot = {
 		x: cx + o.halfWidth / 2,
-		y: cy,
+		y: cy + o.halfHeight,
 	};
 	return ga.hitTestPoint(leftFoot, rect, false) || ga.hitTestPoint(rightFoot, rect, false);
 }
@@ -265,17 +265,17 @@ function movePlayer(o) {
 	}
 	if (o.vy > 0) {
 		o.standing = false;
-		if (map.isWall(cx - hx2, cy + map.hty) || map.isWall(cx + hx2, cy + map.hty)) {
-			var y = map.getY(pt.y);
-			o.y = y;
-			o.jumping = 0;
-			o.standing = true;
-		} else if (o.platforming) {
+		if (o.platforming) {
 			if (o.y + o.height > o.platforming.y) {
 				o.y = o.platforming.y - o.height;
 				o.jumping = 0;
 				o.standing = true;
 			}
+		} else if (map.isWall(cx - hx2, cy + map.hty) || map.isWall(cx + hx2, cy + map.hty)) {
+			var y = map.getY(pt.y);
+			o.y = y;
+			o.jumping = 0;
+			o.standing = true;
 		}
 	} else if (o.vy < 0) {
 		if (map.isWall(cx, cy - map.hty)) {
@@ -292,7 +292,7 @@ function movePlatform(p) {
 	var a = (p.delta + 1) / 2;
 	if (p.platformType == 'v') {
 		var y = p.ty0 * (1 - a) + p.ty1 * a;
-		p.y = map.getY(y + 0.8);
+		p.y = map.getY(y + 1.0);
 		p.dir = (p.ty1 - p.ty0) * Math.cos(p.dt);
 	} else if (p.platformType == 'h') {
 		var x = p.tx0 * (1 - a) + p.tx1 * a;
