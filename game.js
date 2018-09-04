@@ -192,6 +192,10 @@ function switchSys(on) {
 	sysOn = on;
 	map.lasers.visible = sysOn;
 	ga.backgroundColor = on ? '#d0d0d0' : '#4d4d4d';
+	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
+		var p = map.platforms.children[i];
+		p.setTexture(on ? 'platform_on.png' : 'platform_off.png');
+	}
 }
 
 function setupPlayerControls() {
