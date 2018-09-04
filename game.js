@@ -65,6 +65,7 @@ function nextLevel() {
 	var l = levels[level];
 	if (map) {
 		ga.stage.removeChild(map);
+		ga.stage.removeChild(map.doors);
 		ga.stage.removeChild(map.lasers);
 		ga.stage.removeChild(map.platforms);
 	}
