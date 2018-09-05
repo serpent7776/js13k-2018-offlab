@@ -4,6 +4,7 @@ var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png'
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
+		l: 'arrows to move, up to jump',
 		f: function() {
 			map.startPos = {x: 2, y:6};
 			createDoor(9, 6);
@@ -11,6 +12,7 @@ var levels = [
 	},
 	{
 		t: '######################################........######......#####...#...####.......###############',
+		l: '',
 		f: function() {
 			map.startPos = {x: 2, y:6};
 			createDoor(2, 3);
@@ -18,6 +20,7 @@ var levels = [
 	},
 	{
 		t: '#####################################################...#########...######........##############',
+		l: 'space to turn power on/off',
 		f: function() {
 			map.startPos = {x: 2, y:6};
 			createDoor(9, 6);
@@ -26,6 +29,7 @@ var levels = [
 	},
 	{
 		t: '##########################.........###........####........####........###.........##############',
+		l: '',
 		f: function() {
 			map.startPos = {x: 1, y:6};
 			createDoor(10, 2);
@@ -36,6 +40,7 @@ var levels = [
 	},
 	{
 		t: '#############..........####.....#######.....#####..........####......####........###############',
+		l: '',
 		f: function() {
 			map.startPos = {x: 1, y:6};
 			createDoor(10, 1);
@@ -50,6 +55,7 @@ var levels = [
 ];
 var level = -1;
 var map;
+var label;
 var player;
 var playerSpeedMax = 5;
 var gravity = 4;
@@ -64,6 +70,7 @@ function load() {
 	ga.backgroundColor = '#d0d0d0';
 	ga.state = game;
 	player = createPlayer();
+	label = ga.text('', '16px serif', 'white', 8, 264);
 	setupPlayerControls();
 	nextLevel();
 }
@@ -78,6 +85,7 @@ function nextLevel() {
 		ga.stage.removeChild(map.platforms);
 	}
 	map = createMap(l.t, 12, 8, 32, 32);
+	label.content = l.l;
 	l.f();
 	resetPlayer(player);
 	switchSys(true);
