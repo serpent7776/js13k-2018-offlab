@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(1024, 1024, load, ['player.png', 'platform_on.png', 'platform_off.png']);
+var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -58,7 +58,6 @@ var jumpSpeed = 48 / jumpSteps;
 var sysOn = true;
 
 ga.start();
-// ga.scaleToWindow();
 ga.fps = 60;
 
 function load() {
