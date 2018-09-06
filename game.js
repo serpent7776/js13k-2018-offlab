@@ -75,14 +75,40 @@ function load() {
 	nextLevel();
 }
 
+function clear() {
+	ga.stage.removeChild(map);
+	ga.stage.removeChild(map.doors);
+	ga.stage.removeChild(map.lasers);
+	ga.stage.removeChild(map.platforms);
+}
+
+function centeredLabel(content, font, color, y) {
+	var label = ga.text(content, font, color, 1, y);
+	ga.canvas.ctx.font = font;
+	label.x = (ga.stage.width - label.width) * 0.5;
+}
+
+function endGame() {
+	clear();
+	ga.stage.removeChild(player);
+	var text = [
+		'Thanks for playing!',
+		'Refresh page to play again.'
+	];
+	var color = sysOn ? 'black' : 'white';
+	centeredLabel(text[0], '21px serif', color, 45);
+	centeredLabel(text[1], '21px serif', color, 90);
+	ga.state = gameover;
+}
+
 function nextLevel() {
 	level++;
 	var l = levels[level];
+	if (!l) {
+		return endGame();
+	}
 	if (map) {
-		ga.stage.removeChild(map);
-		ga.stage.removeChild(map.doors);
-		ga.stage.removeChild(map.lasers);
-		ga.stage.removeChild(map.platforms);
+		clear();
 	}
 	map = createMap(l.t, 12, 8, 32, 32);
 	label.content = l.l;
@@ -364,6 +390,9 @@ function update() {
 	if (sysOn && checkDead(player)) {
 		resetPlayer(player);
 	}
+}
+
+function gameover() {
 }
 
 function game() {
