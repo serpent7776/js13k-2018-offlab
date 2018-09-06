@@ -329,7 +329,9 @@ function movePlatform(p) {
 function checkNextLevel(p) {
 	if (ga.distance(p, map.doors) < map.htx) {
 		nextLevel();
+		return true;
 	}
+	return false;
 }
 
 function checkDead(p) {
