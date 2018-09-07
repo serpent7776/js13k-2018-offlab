@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png']);
+var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png', 'spikes.png']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -80,6 +80,7 @@ function clear() {
 	ga.stage.removeChild(map.doors);
 	ga.stage.removeChild(map.lasers);
 	ga.stage.removeChild(map.platforms);
+	ga.stage.removeChild(map.spikes);
 }
 
 function centeredLabel(content, font, color, y) {
@@ -140,6 +141,7 @@ function createMap(tiles, nx, ny, width, height) {
 	}
 	map.lasers = ga.group();
 	map.platforms = ga.group();
+	map.spikes = ga.group();
 	map.startPos = {x:1, y:1};
 	map.tiles = tiles;
 	map.nx = nx; // number of tiles in x-axis
@@ -219,6 +221,13 @@ function createPlatformH(tx0, tx1, ty) {
 function createDoor(tx, ty) {
 	var d = ga.rectangle(map.tx - 2, map.ty - 2, 'azure', 'grey', 1, map.getX(tx), map.getY(ty));
 	map.doors = d;
+}
+
+function createSpikes(tx, ty) {
+	var s = ga.sprite('spikes.png');
+	s.x = map.getX(tx);
+	s.y = map.getY(ty) + 6;
+	map.spikes.addChild(s);
 }
 
 function switchSys(on) {
@@ -364,6 +373,13 @@ function checkDead(p) {
 	for (var i = 0, len = map.lasers.children.length; i < len; i++) {
 		var l = map.lasers.children[i];
 		var hit = ga.hitTestRectangle(p, l, true);
+		if (hit) {
+			return true;
+		}
+	}
+	for (var i = 0, len = map.spikes.children.length; i < len; i++) {
+		var s = map.spikes.children[i];
+		var hit = ga.hitTestRectangle(p, s, false);
 		if (hit) {
 			return true;
 		}
