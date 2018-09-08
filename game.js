@@ -53,6 +53,8 @@ var levels = [
 		},
 	},
 ];
+
+var time = 0;
 var playing = true;
 var level = -1;
 var map;
@@ -69,6 +71,7 @@ ga.start();
 ga.fps = 60;
 
 function load() {
+	time = 0;
 	ga.backgroundColor = '#d0d0d0';
 	ga.state = game;
 	player = createPlayer();
@@ -98,11 +101,14 @@ function endGame() {
 	ga.stage.removeChild(player);
 	var text = [
 		'Thanks for playing!',
+		'Your time was: ' + time.toFixed(2) + 's',
 		'Refresh page to play again.'
 	];
 	var color = sysOn ? 'black' : 'white';
-	endLabel[0] = centeredLabel(text[0], '21px serif', color, 45);
-	endLabel[1] = centeredLabel(text[1], '21px serif', color, 90);
+	for (var i = 0, len = text.length; i < len; i++) {
+		var y = 45 + 45 * i;
+		endLabel[i] = centeredLabel(text[i], '21px serif', color, y);
+	}
 	ga.state = gameover;
 }
 
@@ -422,5 +428,6 @@ function gameover() {
 }
 
 function game() {
+	time += 1 / ga.fps;
 	update();
 }
