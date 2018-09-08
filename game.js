@@ -53,9 +53,11 @@ var levels = [
 		},
 	},
 ];
+var playing = true;
 var level = -1;
 var map;
 var label;
+var endLabel = [];
 var player;
 var playerSpeedMax = 5;
 var gravity = 4;
@@ -87,9 +89,11 @@ function centeredLabel(content, font, color, y) {
 	var label = ga.text(content, font, color, 1, y);
 	ga.canvas.ctx.font = font;
 	label.x = (ga.stage.width - label.width) * 0.5;
+	return label;
 }
 
 function endGame() {
+	playing = false;
 	clear();
 	ga.stage.removeChild(player);
 	var text = [
@@ -97,8 +101,8 @@ function endGame() {
 		'Refresh page to play again.'
 	];
 	var color = sysOn ? 'black' : 'white';
-	centeredLabel(text[0], '21px serif', color, 45);
-	centeredLabel(text[1], '21px serif', color, 90);
+	endLabel[0] = centeredLabel(text[0], '21px serif', color, 45);
+	endLabel[1] = centeredLabel(text[1], '21px serif', color, 90);
 	ga.state = gameover;
 }
 
@@ -239,6 +243,11 @@ function switchSys(on) {
 		p.setTexture(on ? 'platform_on.png' : 'platform_off.png');
 	}
 	label.fillStyle = on ? "black" : "white";
+	if (!playing) {
+		for (var i = 0, len = endLabel.length; i < len; i++) {
+			endLabel[i].fillStyle = on ? 'black' : 'white';
+		}
+	}
 }
 
 function setupPlayerControls() {
