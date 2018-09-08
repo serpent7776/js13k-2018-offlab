@@ -54,7 +54,8 @@ var levels = [
 	},
 ];
 
-var time = 0;
+var time;
+var deaths;
 var playing = true;
 var level = -1;
 var map;
@@ -72,6 +73,7 @@ ga.fps = 60;
 
 function load() {
 	time = 0;
+	deaths = 0;
 	ga.backgroundColor = '#d0d0d0';
 	ga.state = game;
 	player = createPlayer();
@@ -103,6 +105,7 @@ function endGame() {
 	var text = [
 		'Thanks for playing!',
 		'Your time was: ' + time.toFixed(2) + 's',
+		'You died: ' + deaths + ' times',
 		'Refresh page to play again.'
 	];
 	var color = sysOn ? 'black' : 'white';
@@ -193,6 +196,11 @@ function resetPlayer(p) {
 	p.standing = false;
 	p.platforming = undefined;
 	p.jumping = 0;
+}
+
+function killPlayer(p) {
+	resetPlayer(p);
+	deaths += 1;
 }
 
 function createLaserV(tx, ty, len) {
@@ -428,7 +436,7 @@ function update() {
 		return;
 	}
 	if (sysOn && checkDead(player)) {
-		resetPlayer(player);
+		killPlayer(player);
 	}
 }
 
