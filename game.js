@@ -99,6 +99,7 @@ function endGame() {
 	playing = false;
 	clear();
 	ga.stage.removeChild(player);
+	ga.stage.removeChild(label);
 	var text = [
 		'Thanks for playing!',
 		'Your time was: ' + time.toFixed(2) + 's',
