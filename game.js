@@ -238,6 +238,7 @@ function switchSys(on) {
 		var p = map.platforms.children[i];
 		p.setTexture(on ? 'platform_on.png' : 'platform_off.png');
 	}
+	label.fillStyle = on ? "black" : "white";
 }
 
 function setupPlayerControls() {
