@@ -63,7 +63,7 @@ var label;
 var endLabel = [];
 var player;
 var playerSpeedMax = 5;
-var gravity = 4;
+var gravity = 3;
 var jumpSteps = 12;
 var jumpSpeed = 48 / jumpSteps;
 var sysOn = true;
