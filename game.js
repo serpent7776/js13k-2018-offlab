@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png', 'spikes.png', 'spikes2.png']);
+var ga = ga(384, 288, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -183,7 +183,7 @@ function createMap(tiles, nx, ny, width, height) {
 }
 
 function createPlayer() {
-	var p = ga.sprite('player.png');
+	var p = ga.sprite('player.bmp');
 	p.standing = false;
 	p.platforming = undefined;
 	p.jumping = 0;
@@ -216,7 +216,7 @@ function createLaserH(tx, ty, len) {
 }
 
 function createPlatformV(tx, ty0, ty1) {
-	var p = ga.sprite('platform_on.png');
+	var p = ga.sprite('platform_on.bmp');
 	map.platforms.addChild(p);
 	p.x = map.getX(tx);
 	p.ty0 = ty0;
@@ -227,7 +227,7 @@ function createPlatformV(tx, ty0, ty1) {
 }
 
 function createPlatformH(tx0, tx1, ty) {
-	var p = ga.sprite('platform_on.png');
+	var p = ga.sprite('platform_on.bmp');
 	map.platforms.addChild(p);
 	p.y = map.getY(ty + 1);
 	p.tx0 = tx0;
@@ -243,14 +243,14 @@ function createDoor(tx, ty) {
 }
 
 function createGroundSpikes(tx, ty) {
-	var s = ga.sprite('spikes.png');
+	var s = ga.sprite('spikes.bmp');
 	s.x = map.getX(tx);
 	s.y = map.getY(ty) + 6;
 	map.spikes.addChild(s);
 }
 
 function createCeilingSpikes(tx, ty) {
-	var s = ga.sprite('spikes2.png');
+	var s = ga.sprite('spikes2.bmp');
 	s.x = map.getX(tx);
 	s.y = map.getY(ty);
 	map.spikes.addChild(s);
@@ -262,7 +262,7 @@ function switchSys(on) {
 	ga.backgroundColor = on ? '#d0d0d0' : '#4d4d4d';
 	for (var i = 0, len = map.platforms.children.length; i < len; i++) {
 		var p = map.platforms.children[i];
-		p.setTexture(on ? 'platform_on.png' : 'platform_off.png');
+		p.setTexture(on ? 'platform_on.bmp' : 'platform_off.bmp');
 	}
 	label.fillStyle = on ? "black" : "white";
 	if (!playing) {
