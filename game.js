@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png', 'spikes.png']);
+var ga = ga(384, 288, load, ['player.png', 'platform_on.png', 'platform_off.png', 'spikes.png', 'spikes2.png']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -233,10 +233,17 @@ function createDoor(tx, ty) {
 	map.doors = d;
 }
 
-function createSpikes(tx, ty) {
+function createGroundSpikes(tx, ty) {
 	var s = ga.sprite('spikes.png');
 	s.x = map.getX(tx);
 	s.y = map.getY(ty) + 6;
+	map.spikes.addChild(s);
+}
+
+function createCeilingSpikes(tx, ty) {
+	var s = ga.sprite('spikes2.png');
+	s.x = map.getX(tx);
+	s.y = map.getY(ty);
 	map.spikes.addChild(s);
 }
 
