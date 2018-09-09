@@ -60,7 +60,7 @@ var playing;
 var level = -1;
 var map;
 var titleLabel = [];
-var label;
+var levelLabel;
 var endLabel = [];
 var player;
 var playerSpeedMax = 5;
@@ -99,7 +99,7 @@ function startGame() {
 	deaths = 0;
 	ga.state = game;
 	player = createPlayer();
-	label = ga.text('', '16px serif', 'white', 8, 264);
+	levelLabel = ga.text('', '16px serif', 'white', 8, 264);
 	setupPlayerControls();
 	nextLevel();
 }
@@ -123,7 +123,7 @@ function endGame() {
 	playing = false;
 	clear();
 	ga.stage.removeChild(player);
-	ga.stage.removeChild(label);
+	ga.stage.removeChild(levelLabel);
 	var text = [
 		'Thanks for playing!',
 		'Your time was: ' + time.toFixed(2) + 's',
@@ -148,7 +148,7 @@ function nextLevel() {
 		clear();
 	}
 	map = createMap(l.t, 12, 8, 32, 32);
-	label.content = l.l;
+	levelLabel.content = l.l;
 	l.f();
 	resetPlayer(player);
 	switchSys(true);
@@ -300,7 +300,7 @@ function switchSys(on) {
 		var p = map.platforms.children[i];
 		p.setTexture(on ? 'platform_on.bmp' : 'platform_off.bmp');
 	}
-	label.fillStyle = on ? "black" : "white";
+	levelLabel.fillStyle = on ? "black" : "white";
 	if (!playing) {
 		for (var i = 0, len = endLabel.length; i < len; i++) {
 			endLabel[i].fillStyle = on ? 'black' : 'white';
