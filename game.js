@@ -23,7 +23,7 @@ var levels = [
 	// 2
 	{
 		t: '##########################################################################################################.............#####.#.#......##.........#...##............#################',
-		l: ['You can turn the whole system on or off by pressing the space bar.', ''],
+		l: ['You can turn the whole system on or off', 'by pressing the space bar.'],
 		f: function() {
 			map.startPos = {x: 1, y: 10};
 			createDoor(1, 7);
