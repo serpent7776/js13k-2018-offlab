@@ -31,7 +31,7 @@ var levels = [
 	},
 	{
 		t: '########################################....###########...############....##.............##.............##......#......##.............##.............##.............################',
-		l: ['Platforms move when the power is on. Turn the power off to stop them.', ''],
+		l: ['Platforms move when the power is on.', 'Turn the power off to stop them.'],
 		f: function() {
 			map.startPos = {x: 1, y: 10};
 			createDoor(13, 2);
