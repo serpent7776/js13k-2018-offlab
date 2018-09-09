@@ -56,9 +56,10 @@ var levels = [
 
 var time;
 var deaths;
-var playing = true;
+var playing;
 var level = -1;
 var map;
+var titleLabel = [];
 var label;
 var endLabel = [];
 var player;
@@ -72,9 +73,30 @@ ga.start();
 ga.fps = 60;
 
 function load() {
+	ga.backgroundColor = '#d0d0d0';
+	ga.state = nop;
+	playing = false;
+	var text = [
+		'Welcome test unit 478.',
+		'Your task is to reach a portal',
+		'represented by white square on each floor.',
+		'Try not to get destroyed while doing so. Good luck!',
+		'Press space to proceed.'
+	];
+	for (var i = 0, len = text.length; i < len; i++) {
+		titleLabel[i] = centeredLabel(text[i], '16px serif', 'black', 45 + 45 * i);
+	}
+	setupTitleControls();
+
+}
+
+function startGame() {
+	for (var i = 0, len = titleLabel.length; i < len; i++) {
+		ga.stage.removeChild(titleLabel[i]);
+	}
+	playing = true;
 	time = 0;
 	deaths = 0;
-	ga.backgroundColor = '#d0d0d0';
 	ga.state = game;
 	player = createPlayer();
 	label = ga.text('', '16px serif', 'white', 8, 264);
@@ -113,7 +135,7 @@ function endGame() {
 		var y = 45 + 45 * i;
 		endLabel[i] = centeredLabel(text[i], '21px serif', color, y);
 	}
-	ga.state = gameover;
+	ga.state = nop;
 }
 
 function nextLevel() {
@@ -286,6 +308,12 @@ function switchSys(on) {
 	}
 }
 
+function setupTitleControls() {
+	ga.key.space.press = function() {
+		startGame();
+	}
+}
+
 function setupPlayerControls() {
 	ga.key.upArrow.press = function() {
 		if (player.jumping == 0 && (player.standing || player.platforming)) {
@@ -454,7 +482,7 @@ function update() {
 	}
 }
 
-function gameover() {
+function nop() {
 }
 
 function game() {
