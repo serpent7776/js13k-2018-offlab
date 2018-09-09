@@ -477,11 +477,13 @@ function checkNextLevel(p) {
 }
 
 function checkDead(p) {
-	for (var i = 0, len = map.lasers.children.length; i < len; i++) {
-		var l = map.lasers.children[i];
-		var hit = ga.hitTestRectangle(p, l, true);
-		if (hit) {
-			return true;
+	if (sysOn) {
+		for (var i = 0, len = map.lasers.children.length; i < len; i++) {
+			var l = map.lasers.children[i];
+			var hit = ga.hitTestRectangle(p, l, true);
+			if (hit) {
+				return true;
+			}
 		}
 	}
 	for (var i = 0, len = map.spikes.children.length; i < len; i++) {
@@ -510,7 +512,7 @@ function update() {
 	if (checkNextLevel(player)) {
 		return;
 	}
-	if (sysOn && checkDead(player)) {
+	if (checkDead(player)) {
 		killPlayer(player);
 	}
 }
