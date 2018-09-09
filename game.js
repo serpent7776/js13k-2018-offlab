@@ -1,6 +1,6 @@
 "use strict";
 
-var ga = ga(384, 288, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp']);
+var ga = ga(384, 288, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp', 'small_spikes.bmp', 'small_spikes2.bmp']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
@@ -252,6 +252,20 @@ function createGroundSpikes(tx, ty) {
 function createCeilingSpikes(tx, ty) {
 	var s = ga.sprite('spikes2.bmp');
 	s.x = map.getX(tx);
+	s.y = map.getY(ty);
+	map.spikes.addChild(s);
+}
+
+function createSmallGroundSpikes(tx, ty) {
+	var s = ga.sprite('small_spikes.bmp');
+	s.x = map.getX(tx) + 3;
+	s.y = map.getY(ty) + 20;
+	map.spikes.addChild(s);
+}
+
+function createSmallCeilingSpikes(tx, ty) {
+	var s = ga.sprite('small_spikes2.bmp');
+	s.x = map.getX(tx) + 3;
 	s.y = map.getY(ty);
 	map.spikes.addChild(s);
 }
