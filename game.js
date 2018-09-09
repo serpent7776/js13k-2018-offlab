@@ -144,6 +144,50 @@ var levels = [
 			createGroundSpikes(13, 10);
 		},
 	},
+	// 8
+	{
+		t: '##########################################################################################################.............##.............##..........<#.##..YYYYYYYYY#.################',
+		l: ['', ''],
+		f: function() {
+			map.startPos = {x: 1, y: 10};
+			createDoor(13, 10);
+			createLaserH(1, 9, 11);
+			createPlatformH(3, 11, 9);
+			for (var i = 0; i < 9; i++) {
+				createGroundSpikes(3 + i, 10);
+			}
+		},
+	},
+	// 9
+	{
+		t: '################.............###............###YYYYYYYYYYY.##############.##...x...x...x.##.y...y...y...##.##############.............##YYYYYY.YYYYYY########.######################',
+		l: ['', ''],
+		f: function() {
+			map.startPos = {x: 1, y: 1};
+			createDoor(7, 10);
+			createLaserV(5, 1, 3);
+			createLaserV(9, 1, 3);
+			createPlatformH(2, 4, 2);
+			createPlatformH(6, 9, 2);
+			createPlatformH(10, 13, 2);
+			createPlatformH(1, 13, 8);
+			for (var i = 0; i < 11; i++) {
+				createGroundSpikes(2 + i, 3);
+			}
+			for (var i = 0; i < 3; i++) {
+				createSmallCeilingSpikes(12 - i * 4, 5);
+			}
+			for (var i = 0; i < 3; i++) {
+				createSmallGroundSpikes(10 - i * 4, 6);
+			}
+			for (var i = 0; i < 6; i++) {
+				createGroundSpikes(1 + i, 9);
+			}
+			for (var i = 0; i < 6; i++) {
+				createGroundSpikes(8 + i, 9);
+			}
+		},
+	},
 ];
 
 var time;
