@@ -112,6 +112,38 @@ var levels = [
 			createSmallGroundSpikes(7, 6);
 		},
 	},
+	// 7
+	{
+		t: '################XXX#XXX########...#...########...#...#XXX#.##...#.......#.##...#...###.#.##...#...#...#.##.......#.###.##...#...#.....##...#...#.....##...#YYY#YYYYY################',
+		l: ['', ''],
+		f: function() {
+			map.startPos = {x: 1, y: 10};
+			createDoor(13, 3);
+			createLaserV(4, 7, 1);
+			createLaserV(8, 4, 1);
+			createLaserV(10, 6, 1);
+			createPlatformV(2, 10, 1);
+			createPlatformV(5, 1, 10);
+			createPlatformV(6, 1, 10);
+			createPlatformV(7, 1, 10);
+			createPlatformH(9, 11, 9);
+			createPlatformV(13, 9, 4);
+			createCeilingSpikes(1, 1);
+			createCeilingSpikes(2, 1);
+			createCeilingSpikes(3, 1);
+			createCeilingSpikes(5, 1);
+			createCeilingSpikes(6, 1);
+			createCeilingSpikes(7, 1);
+			createGroundSpikes(5, 10);
+			createGroundSpikes(6, 10);
+			createGroundSpikes(7, 10);
+			createGroundSpikes(9, 10);
+			createGroundSpikes(10, 10);
+			createGroundSpikes(11, 10);
+			createGroundSpikes(12, 10);
+			createGroundSpikes(13, 10);
+		},
+	},
 ];
 
 var time;
