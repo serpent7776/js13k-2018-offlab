@@ -3,53 +3,78 @@
 var ga = ga(480, 448, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp', 'small_spikes.bmp', 'small_spikes2.bmp']);
 var levels = [
 	{
-		t: '#####################################################...#########...######....#...##############',
+		t: '##########################################################################################################################################....#....####...#.....#...################',
 		l: ['Hello. Press left and right arrow keys to move.', 'Press up arrow key to jump.'],
 		f: function() {
-			map.startPos = {x: 2, y:6};
-			createDoor(9, 6);
+			map.startPos = {x: 1, y: 10};
+			createDoor(13, 10);
 		},
 	},
 	{
-		t: '######################################........######......#####...#...####.......###############',
-		l: '',
+		t: '##########################################################################################################.............#####..........####...#...#...##............#################',
+		l: ['', ''],
 		f: function() {
-			map.startPos = {x: 2, y:6};
-			createDoor(2, 3);
+			map.startPos = {x: 1, y: 10};
+			createDoor(1, 7);
 		},
 	},
 	{
-		t: '#####################################################...#########...######........##############',
-		l: 'space to turn power on/off',
+		t: '##########################################################################################################.............#####.#.#......##.........#...##............#################',
+		l: ['You can turn the whole system on or off by pressing the space bar.', ''],
 		f: function() {
-			map.startPos = {x: 2, y:6};
-			createDoor(9, 6);
-			createLaserV(6, 4, 3);
+			map.startPos = {x: 1, y: 10};
+			createDoor(1, 7);
+			createLaserV(5, 7, 1);
+			createLaserV(7, 7, 1);
+			createLaserV(10, 7, 2);
 		},
 	},
 	{
-		t: '##########################.........###........####........####........###.........##############',
-		l: '',
+		t: '########################################....###########...############....##.............##.............##......#......##.............##.............##.............################',
+		l: ['Platforms move when the power is on. Turn the power off to stop them.', ''],
 		f: function() {
-			map.startPos = {x: 1, y:6};
-			createDoor(10, 2);
-			createLaserV(8, 2, 5);
-			createPlatformV(3, 5, 2);
-			createPlatformH(5, 9, 3);
+			map.startPos = {x: 1, y: 10};
+			createDoor(13, 2);
+			createLaserV(9, 5, 6);
+			createPlatformV(3, 9, 7);
+			createPlatformV(11, 7, 2);
 		},
 	},
 	{
-		t: '#############..........####.....#######.....#####..........####......####........###############',
-		l: '',
+		t: '################################################...........##.............####.........####.............##.......##....####.........####...........####...........##################',
+		l: ['Beware of the spikes! They will kill you on the slightest touch.', 'Turning the power off won\'t stop them from hurting you.'],
 		f: function() {
-			map.startPos = {x: 1, y:6};
-			createDoor(10, 1);
+			map.startPos = {x: 1, y: 10};
+			createDoor(1, 4);
 			createLaserV(2, 4, 1);
-			createLaserV(2, 1, 1);
-			createPlatformV(8, 6, 4);
-			createPlatformH(8, 3, 4);
-			createPlatformV(3, 4, 1);
-			createPlatformH(3, 7, 1);
+			createLaserV(2, 6, 2);
+			createLaserV(12, 6, 2);
+			createLaserV(12, 3, 2);
+			createPlatformV(3, 10, 7);
+			createPlatformH(6, 11, 8);
+			createPlatformV(11, 7, 4);
+			createPlatformH(9, 3, 4);
+			createGroundSpikes(8, 6);
+			createGroundSpikes(9, 6);
+		},
+	},
+	{
+		t: '################.........#.####....####.#.####.....###...####.....###...#####....###.#.####.....###...####.....###...####....####.#.####.....###...####.....###.....################',
+		l: ['', ''],
+		f: function() {
+			map.startPos = {x: 1, y: 10};
+			createDoor(13, 10);
+			createLaserH(1, 7, 5);
+			createLaserH(1, 4, 5);
+			createLaserH(1, 1, 9);
+			createLaserV(10, 3, 2);
+			createLaserV(10, 6, 2);
+			createLaserV(10, 9, 2);
+			createLaserH(9, 5, 1);
+			createLaserH(11, 8, 1);
+			createPlatformV(3, 10, 2);
+			createPlatformV(9, 10, 2);
+			createPlatformV(11, 10, 2);
 		},
 	},
 ];
