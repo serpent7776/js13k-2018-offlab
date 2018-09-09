@@ -1,10 +1,10 @@
 "use strict";
 
-var ga = ga(384, 288, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp', 'small_spikes.bmp', 'small_spikes2.bmp']);
+var ga = ga(480, 448, load, ['player.bmp', 'platform_on.bmp', 'platform_off.bmp', 'spikes.bmp', 'spikes2.bmp', 'small_spikes.bmp', 'small_spikes2.bmp']);
 var levels = [
 	{
 		t: '#####################################################...#########...######....#...##############',
-		l: 'arrows to move, up to jump',
+		l: ['Hello. Press left and right arrow keys to move.', 'Press up arrow key to jump.'],
 		f: function() {
 			map.startPos = {x: 2, y:6};
 			createDoor(9, 6);
@@ -60,7 +60,7 @@ var playing;
 var level = -1;
 var map;
 var titleLabel = [];
-var levelLabel;
+var levelLabel = [];
 var endLabel = [];
 var player;
 var playerSpeedMax = 5;
@@ -99,7 +99,9 @@ function startGame() {
 	deaths = 0;
 	ga.state = game;
 	player = createPlayer();
-	levelLabel = ga.text('', '16px serif', 'white', 8, 264);
+	for (var i = 0, len = 2; i < len; i++) {
+		levelLabel[i] = ga.text('', '16px serif', 'white', 8, 392 + 32 * i);
+	}
 	setupPlayerControls();
 	nextLevel();
 }
@@ -123,7 +125,9 @@ function endGame() {
 	playing = false;
 	clear();
 	ga.stage.removeChild(player);
-	ga.stage.removeChild(levelLabel);
+	for (var i = 0, len = levelLabel.length; i < len; i++) {
+		ga.stage.removeChild(levelLabel[i]);
+	}
 	var text = [
 		'Thanks for playing!',
 		'Your time was: ' + time.toFixed(2) + 's',
@@ -147,8 +151,10 @@ function nextLevel() {
 	if (map) {
 		clear();
 	}
-	map = createMap(l.t, 12, 8, 32, 32);
-	levelLabel.content = l.l;
+	map = createMap(l.t, 15, 12, 32, 32);
+	for (var i = 0, len = l.l.length; i < len; i++) {
+		levelLabel[i].content = l.l[i];
+	}
 	l.f();
 	resetPlayer(player);
 	switchSys(true);
@@ -300,7 +306,9 @@ function switchSys(on) {
 		var p = map.platforms.children[i];
 		p.setTexture(on ? 'platform_on.bmp' : 'platform_off.bmp');
 	}
-	levelLabel.fillStyle = on ? "black" : "white";
+	for (var i = 0, len = levelLabel.length; i < len; i++) {
+		levelLabel[i].fillStyle = on ? "black" : "white";
+	}
 	if (!playing) {
 		for (var i = 0, len = endLabel.length; i < len; i++) {
 			endLabel[i].fillStyle = on ? 'black' : 'white';
