@@ -455,8 +455,8 @@ function movePlayer(o) {
 
 function movePlatform(p) {
 	p.dt += 0.02;
-	p.delta = Math.sin(p.dt);
-	var a = (p.delta + 1) / 2;
+	p.delta = Math.cos(p.dt);
+	var a = 1 - (p.delta + 1) / 2;
 	if (p.platformType == 'v') {
 		var y = p.ty0 * (1 - a) + p.ty1 * a;
 		p.y = map.getY(y + 1.0);
