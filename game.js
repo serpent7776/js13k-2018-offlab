@@ -77,6 +77,34 @@ var levels = [
 			createPlatformV(11, 10, 2);
 		},
 	},
+	{
+		t: '################...#...###...##.......###..###...###.###...##...#...###...##...#...###...##...#...###...##...#.#####...##...#.........##...#.........##...#...###...################',
+		l: ['', ''],
+		f: function() {
+			map.startPos = {x: 1, y: 9};
+			createDoor(13, 1);
+			createLaserV(4, 2, 1);
+			createLaserV(9, 8, 2);
+			createLaserH(5, 7, 1);
+			createLaserH(7, 3, 1);
+			createPlatformV(1, 10, 1);
+			createPlatformV(2, 10, 1);
+			createPlatformV(3, 10, 1);
+			createPlatformV(12, 9, 1);
+			createCeilingSpikes(1, 1);
+			createCeilingSpikes(2, 1);
+			createCeilingSpikes(3, 1);
+			createGroundSpikes(5, 10);
+			createGroundSpikes(6, 10);
+			createGroundSpikes(7, 10);
+			createGroundSpikes(11, 10);
+			createGroundSpikes(12, 10);
+			createGroundSpikes(13, 10);
+			createSmallGroundSpikes(6, 2);
+			createSmallGroundSpikes(6, 6);
+			createSmallGroundSpikes(7, 6);
+		},
+	},
 ];
 
 var time;
