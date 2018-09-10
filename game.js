@@ -154,8 +154,9 @@ var levels = [
 			createLaserH(1, 9, 11);
 			createPlatformH(3, 7, 9);
 			createPlatformH(9, 11, 9);
-			for (var i = 0; i < 9; i++) {
-				createGroundSpikes(3 + i, 10);
+			createSmallGroundSpikes(3, 10);
+			for (var i = 0; i < 8; i++) {
+				createGroundSpikes(4 + i, 10);
 			}
 		},
 	},
