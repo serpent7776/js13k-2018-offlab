@@ -379,24 +379,24 @@ function createLaserH(tx, ty, len) {
 	return b;
 }
 
-function createPlatformV(tx, ty0, ty1) {
+function createPlatformV(tx, ty0, ty1, dt) {
 	var p = ga.sprite('platform_on.bmp');
 	map.platforms.addChild(p);
 	p.x = map.getX(tx);
 	p.ty0 = ty0;
 	p.ty1 = ty1;
-	p.dt = 0;
+	p.dt = dt || 0;
 	p.platformType = 'v';
 	return p;
 }
 
-function createPlatformH(tx0, tx1, ty) {
+function createPlatformH(tx0, tx1, ty, dt) {
 	var p = ga.sprite('platform_on.bmp');
 	map.platforms.addChild(p);
 	p.y = map.getY(ty + 1);
 	p.tx0 = tx0;
 	p.tx1 = tx1;
-	p.dt = 0;
+	p.dt = dt || 0;
 	p.platformType = 'h';
 	return p;
 }
