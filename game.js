@@ -152,7 +152,8 @@ var levels = [
 			map.startPos = {x: 1, y: 10};
 			createDoor(13, 10);
 			createLaserH(1, 9, 11);
-			createPlatformH(3, 11, 9);
+			createPlatformH(3, 7, 9);
+			createPlatformH(9, 11, 9);
 			for (var i = 0; i < 9; i++) {
 				createGroundSpikes(3 + i, 10);
 			}
