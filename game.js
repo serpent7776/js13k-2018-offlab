@@ -238,7 +238,7 @@ function startGame() {
 	ga.state = game;
 	player = createPlayer();
 	for (var i = 0, len = 2; i < len; i++) {
-		levelLabel[i] = ga.text('', '16px serif', 'white', 8, 392 + 32 * i);
+		levelLabel[i] = ga.text('', '15px serif', 'white', 2, 392 + 32 * i);
 	}
 	setupPlayerControls();
 	nextLevel();
