@@ -123,9 +123,9 @@ var levels = [
 			createLaserV(8, 4, 1);
 			createLaserV(10, 6, 1);
 			createPlatformV(2, 10, 1);
-			createPlatformV(5, 1, 10);
-			createPlatformV(6, 1, 10);
-			createPlatformV(7, 1, 10);
+			createPlatformV(5, 1, 10, 1);
+			createPlatformV(6, 1, 10, 1);
+			createPlatformV(7, 1, 10, 1);
 			createPlatformH(9, 11, 9);
 			createPlatformV(13, 9, 4);
 			createCeilingSpikes(1, 1);
